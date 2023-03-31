@@ -14,13 +14,12 @@ This extension makes sure you can easily reopen and arrange them again if that h
 * Arrange pinned tabs in a saved order
 * Export/Import of settings
 
-Screenshot:
-
-<img src="./images/screenshot_1.png" alt="Immortal Pins screenshot" width="896" height="560">
-
-
 ## Download
 [Chrome web store](https://chrome.google.com/webstore/detail/afidegpkabcaoimfpnilmmmphfleeefo)
+
+## Screenshots
+<img src="./images/screenshot_1.png" alt="Immortal Pins screenshot" width="896" height="560">
+
 
 ## Support and Bug reports
 [GitHub issues](https://github.com/C0rn3j/ImmortalPins/issues)
