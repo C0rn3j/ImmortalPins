@@ -1,5 +1,8 @@
-// @ts-nocheck
+// @ts-DOnocheck
 //import * as angular from "angular";
+
+// FileSaver
+declare const saveAs: any;
 
 interface savedTab {
 	url: string;
@@ -71,7 +74,7 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 		return tabs;
 	}
 
-	async function getSavedTabs() {
+	async function getSavedTabs(): Promise<savedTab[]> {
 		return new Promise((resolve) => {
 				chrome.storage.sync.get('savedTabs', ({ savedTabs }) => {
 						if (!savedTabs) {
@@ -113,16 +116,29 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 		}
 		let protocol = dropdownProtocolButton.textContent;
 		let ruleType = '';
-		let regex = null;
 
 		const selectedRadioButton = document.querySelector('input[name="choice"]:checked');
 		if (selectedRadioButton) {
+			if(!selectedRadioButton.parentNode) { alert('Something is deeply broken, no parent for radio button'); return }
 			const selectedLabel = selectedRadioButton.parentNode.querySelector('label');
+			if (!selectedLabel ) {
+				alert('Could not find label element')
+				return
+			} else if (selectedLabel.textContent === null) {
+				alert('Label text is null')
+				return
+			}
 			ruleType = selectedLabel.textContent;
 		}
 
+		let regex = 'null';
 		if (ruleType === 'Regex') {
-			regex = document.getElementById('regex-input').value;
+			const regexInput = document.getElementById('regex-input') as HTMLInputElement
+			if(!regexInput) {
+				alert('Could not find label element with ID regex-input')
+				return
+			}
+			regex = regexInput.value;
 		}
 
 		if ( (tabUrl.startsWith('https://') || tabUrl.startsWith('http://'))) {
@@ -142,7 +158,7 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 
 			let tab = { url: tabUrl, index: index, rule: ruleType, protocol: protocol, state: 'Enabled', regex: regex || null };
 			$scope.savedTabs.push(tab);
-			$scope.savedTabs.sort((a, b) => a.index - b.index);
+			$scope.savedTabs.sort((a: savedTab, b: savedTab) => a.index - b.index);
 			chrome.storage.sync.set({ savedTabs: $scope.savedTabs }, () => {
 				console.log('Tab URL saved:', tabUrl);
 				tabUrlInput.value = '';
@@ -152,25 +168,49 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 
 	$scope.editTab = async function(tab: savedTab) {
 		// TODO - actually make this into an edit function instead of a copy one
-		const tabUrlInput = document.getElementById("tabUrl")
-		const regexInput = document.getElementById("regex-input")
+		const tabUrlInput = document.getElementById("tabUrl") as HTMLInputElement
 		const buttonProtocol = document.getElementById("dropbtn-protocol-button")
+		if (!buttonProtocol) {
+			alert('Could not find element with ID dropbtn-protocol-button')
+			return
+		}
 
 		const labels = document.querySelectorAll('label')
 		labels.forEach(label => {
 			if (label.textContent === tab.rule) {
-				label.previousElementSibling.checked = true
+				const beforeLabel = label.previousElementSibling as HTMLInputElement
+				beforeLabel.checked = true
 			}
 		});
 
-		if (tab.rule === 'Regex') {
+		const regexContainer = document.getElementById("regex-container")
+		if (!regexContainer) {
+			alert('Could not find element with ID regex-container')
+			return
+		}
+		const regexInput = document.getElementById("regex-input") as HTMLInputElement
+		if (!regexInput) {
+			alert('Could not find element with ID regex-input')
+			return
+		}
+		if (tab.rule === 'Regex' && tab.regex !== null) {
 			regexInput.value = tab.regex
-			document.getElementById("regex-container").style.visibility = 'visible'
+			regexContainer.style.visibility = 'visible'
 		} else {
-			document.getElementById("regex-container").style.visibility = 'hidden'
+			regexContainer.style.visibility = 'hidden'
 		}
 		const exactMatchOption = ruleOptions.find(option => option.option === tab.rule)
-		document.getElementById("rule-type-desc").innerHTML = exactMatchOption.desc
+		if (!exactMatchOption) {
+			alert('Could not find a match for rule: ' + tab.rule)
+			return
+		}
+
+		const ruleTypeDesc = document.getElementById("rule-type-desc")
+		if (!ruleTypeDesc) {
+			alert('Could not find element with ID rule-type-desc')
+			return
+		}
+		ruleTypeDesc.innerHTML = exactMatchOption.desc
 
 		tabUrlInput.value = tab.url
 		buttonProtocol.textContent = tab.protocol
@@ -199,7 +239,8 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 		}
 	};
 
-	$scope.getOpenTabByURL = async function(url: string, tabList, rule: string, regexString: string) {
+	// TODO - fix the ANY here, it's a list of browser tabs
+	$scope.getOpenTabByURL = async function(url: string, tabList: any, rule: string, regexString: string) {
 		// Iterate each tab and verify if it matches one in the provided list
 		for (let tabIndex in tabList) {
 			let tab = tabList[tabIndex]
@@ -241,12 +282,25 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 	];
 
 	// TODO remove if hack after rewrite
-	if (location.pathname.split("/").slice(-1) != 'popup.html') {
+	if (location.pathname.split("/").slice(-1)[0] != 'popup.html') {
 		let defaultRule = "Loose"
 		const exactMatchOption = ruleOptions.find(option => option.option === defaultRule);
-		document.getElementById("rule-type-desc").innerHTML = exactMatchOption.desc;
+		const ruleTypeDesc = document.getElementById("rule-type-desc")
+		if (!ruleTypeDesc) {
+			alert('Could not find element with ID rule-type-desc')
+			return
+		}
+		if (!exactMatchOption) {
+			alert('Could not find a rule match for option: ' + defaultRule)
+			return
+		}
+		ruleTypeDesc.innerHTML = exactMatchOption.desc;
 
 		const rulesBox = document.getElementById("rule-rectangle-box");
+		if (!rulesBox) {
+			alert('Could not find element with ID rule-rectangle-box')
+			return
+		}
 		ruleOptions.forEach(option => {
 			const div = document.createElement("div");
 			div.classList.add("rule-rectangle-box-component");
@@ -264,11 +318,16 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 
 			div.addEventListener("change", () => {
 				if (input.checked) {
-					document.getElementById("rule-type-desc").innerHTML = option.desc;
+					ruleTypeDesc.innerHTML = option.desc;
+					const regexContainer = document.getElementById("regex-container")
+					if (!regexContainer) {
+						alert('Could not find element with ID regex-container')
+						return
+					}
 					if (option.option === 'Regex') {
-						document.getElementById("regex-container").style.visibility = 'visible'
+						regexContainer.style.visibility = 'visible'
 					} else {
-						document.getElementById("regex-container").style.visibility = 'hidden'
+						regexContainer.style.visibility = 'hidden'
 					}
 				}
 			});
@@ -278,23 +337,33 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 		const labels = document.querySelectorAll('label');
 		labels.forEach(label => {
 			if (label.textContent === defaultRule) {
-				label.previousElementSibling.checked = true
+				const beforeLabel = label.previousElementSibling as HTMLInputElement
+				beforeLabel.checked = true
 			}
 		});
 
 
 		const dropdownContentProtocols = document.getElementById("protocol-options");
+		if (!dropdownContentProtocols) {
+			alert('Could not find element with ID protocol-options')
+			return
+		}
+		const dropdownProtocolButton = document.getElementById('dropbtn-protocol-button');
+		if (!dropdownProtocolButton) {
+			alert('Could not find element with ID dropbtn-protocol-button')
+			return
+		}
 		protocolOptions.forEach(option => {
 			const a = document.createElement("a");
 			a.href = "#";
 			a.textContent = option.option;
 			a.addEventListener("click", () => {
-				document.getElementById("dropbtn-protocol-button").innerHTML = option.option;
+				dropdownProtocolButton.innerHTML = option.option;
 				dropdownContentProtocols.style.display = 'none';
 			});
 			dropdownContentProtocols.appendChild(a);
 		});
-		document.getElementById("dropbtn-protocol-button").addEventListener('mouseover', function() {
+		dropdownProtocolButton.addEventListener('mouseover', function() {
 			dropdownContentProtocols.style.display = '';
 		});
 	}
@@ -361,6 +430,10 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 			const browserInfo = await browser.runtime.getBrowserInfo()
 			if (browserInfo.name === 'Firefox') {
 				const manifest = browser.runtime.getManifest()
+				if (!manifest.options_ui) {
+					alert('manifest.options_ui is undefined!')
+					return
+				}
 				urlToOpen = manifest.options_ui.page;
 			} else {
 				alert('Unsupported browser: ' + browserInfo.name)
@@ -400,11 +473,15 @@ if (location.pathname.split("/").slice(-1)[0] !== 'popup.html') {
 		input.type = 'file';
 		input.accept = 'application/json';
 		input.onchange = function() {
-			const file = input.files[0];
+			const file = input.files ? input.files[0] : null;
+			if (!file) {
+				alert('Error loading settings file');
+				return;
+			}
 			const reader = new FileReader();
 			reader.readAsText(file);
 			reader.onload = function() {
-				const data = JSON.parse(reader.result);
+				const data = JSON.parse(reader.result as string);
 				chrome.storage.sync.set(data, function() {
 					console.log('Imported data:', data);
 					// Reload savedTabs
