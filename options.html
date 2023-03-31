@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html ng-app="tabsApp">
+	<head>
+		<link rel='stylesheet' href='styles.css'>
+		<!-- Add AngularJS and jQuery libraries -->
+		<!-- AngularJS, migrate to Angular instead -->
+		<script src="libraries/jquery-3.6.4.min.js"></script>
+		<script src="libraries/jquery-ui-1.13.2.min.js"></script>
+		<script src="libraries/angular-1.8.2.min.js"></script>
+		<!-- Add angular-ui-sortable library -->
+		<script src="libraries/angular-sortable-0.19.0.min.js"></script>
+		<!-- Add github.com/eligrey/FileSaver.js library -->
+		<script src="libraries/FileSaver-2.0.4.min.js"></script>
+
+		<!-- Add custom AngularJS app and controller files -->
+		<script src="app.js"></script>
+		<script src="tabsController.js"></script>
+	</head>
+	<body ng-controller="TabsController">
+
+		<div class="container">
+			<div id="top-half-colorparent">
+				<div id="top-half">
+
+					<div class="settings-box-container">
+						<div class="image-container">
+							<img id="heading-icon" src="images/icon_128x128.png" alt="Immortal Pins icon">
+							<div class="heading-container">
+								<span class="icon-text">Immortal Pins</span>
+							</div>
+						</div>
+
+						<div id="tab-url-container">
+							<span class="settings-text">Pin URL</span>
+							<div class="tab-url-elements">
+								<div class="tab-url-rectangle-box">
+									<div class="tab-url-protocol-dropdown">
+										<div class="dropdown">
+											<button class="dropbtn" id="dropbtn-protocol-button">https://</button>
+											<div class="dropdown-content" id="protocol-options">
+											</div>
+										</div>
+									</div>
+									<input type="text" id="tabUrl" name="tabUrl" placeholder="www.example.com">
+								</div>
+								<button ng-click="saveTab()" id="save-button">
+									<img src="images/icon-save.svg" alt="Save icon" id="save-button-icon">
+									Save
+								</button>
+							</div>
+						</div>
+
+						<div id="rule-container">
+							<span class="settings-text">Rule type</span>
+							<div id="rule-rectangle-box" class="rule-rectangle-box">
+							</div>
+							<span id="rule-type-desc"></span>
+						</div>
+
+						<div id="regex-container">
+							<span class="settings-text">RegEx</span>
+							<div class="regex-input-wrapper">
+								<input type="text" id="regex-input" name="regexInput" placeholder="^https:\/\/example\.com">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<p id="warningBox"></p>
+			</div>
+
+			<div id="bottom-half">
+				<div class="button-container">
+					<span id="saved-pins-text">Saved Pins</span>
+					<div id="div-filler"></div>
+					<button class="settings-button" id='button-sync'   ng-click="syncTabs()">
+						<img src="images/icon-sync.svg" class="settings-button-icon">
+						Revive pins
+					</button>
+					<button class="settings-button" id='button-export' ng-click="exportSettings()">
+						<img src="images/icon-export.svg" class="settings-button-icon">
+						Export Settings
+					</button>
+					<button class="settings-button" id='button-import' ng-click="importSettings()">
+						<img src="images/icon-import.svg" class="settings-button-icon">
+						Import Settings
+					</button>
+					<button class="settings-button" id='buttonWarning' ng-click="removeAllTabs()">
+						<img src="images/icon-delete.svg" class="settings-button-icon">
+						Remove all pins
+					</button>
+				</div>
+				<ul ui-sortable="sortableOptions" ng-model="savedTabs">
+					<li ng-repeat="savedTab in savedTabs track by $index">
+						<div class="rule-rectangle">
+							<span class="rule-rectangle-text">{{ savedTab.rule }}</span>
+						</div>
+						<div class="tab-texts">
+							<div class="tab-texts-bluh">
+								<span class="protocol-text">{{ savedTab.protocol }}</span>
+								<span class='savedTabURL savedTabURL-{{ savedTab.state }}'>{{ savedTab.url }}</span>
+							</div>
+						<p class="tab-regex-text tab-regex-text-{{ savedTab.rule }}">{{ savedTab.regex }}</p>
+						</div>
+					<div class="tab-button-container">
+							<button ng-click="toggleEnableState(savedTab)" class="button-switch button-{{ savedTab.state }}">
+								<img class="icon-on image-{{ savedTab.state }}" src="images/icon-button-on.svg">
+								<img class="icon-off image-{{ savedTab.state }}" src="images/icon-button-off.svg">
+								{{ savedTab.state }}
+							</button>
+							<button ng-click="editTab(savedTab)"           class='button-edit'>
+								<img class="icon-copy" src="images/icon-copy.svg">
+								Copy
+							</button>
+							<button ng-click="removeTab(savedTab)"         class='button-warning'>
+								<img class="icon-delete-light" src="images/icon-delete-light.svg">
+								Remove
+							</button>
+						</div>
+					</li>
+				</ul>
+				<div id="donation-buttons">
+					<button ng-click="donatePaypal()" id="button-donate">
+						<img src="images/icon-paypal.svg" id="paypal-logo" alt="PayPal Logo">
+						Support me via PayPal
+					</button>
+					<button ng-click="donatePatreon()" id="button-donate">
+						<img src="images/Digital-Patreon-Logo_FieryCoral.png" id="patreon-logo" alt="Patreon Logo">
+						Become a Patron
+					</button>
+				</div>
+			</div>
+
+		</div>
+	</body>
+</html>

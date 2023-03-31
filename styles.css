@@ -1,0 +1,534 @@
+@font-face {
+	font-family: 'CabinSketch';
+	src: url('fonts/CabinSketch-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Roboto';
+	src: url('fonts/Roboto-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Roboto';
+	src: url('fonts/Roboto-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+.icon-text {
+	width: 226px;
+	height: 42px;
+	font-family: CabinSketch;
+	font-size: 36px;
+	font-weight: bold;
+	color: #213b76;
+}
+
+.image-container {
+	display: flex;
+	align-items: baseline;
+	margin-bottom: 10px;
+}
+
+#top-half-colorparent {
+	display: block;
+	background-color: white;
+}
+
+#top-half {
+	padding: 15%;
+	padding-bottom: 1%;
+	padding-top: 1%;
+}
+
+#bottom-half {
+	background-color: transparent;
+	padding: 15%;
+	padding-bottom: 1%;
+	padding-top: 1%;
+}
+
+.settings-box-container {
+	display: block;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+#rule-container {
+	display: flex;
+	align-items: left;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#saved-pins-text {
+	width: 180px;
+	height: 42px;
+	font-family: Roboto;
+	font-size: 36px;
+	font-weight: bold;
+	text-align: center;
+	color: #213b76;
+}
+
+#tab-url-container {
+	display: flex;
+	align-items: left;
+	justify-content: center;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+#heading-icon {
+	margin-right: 10px;
+	height: 58px;
+	width: 58px;
+}
+
+.rule-rectangle-text {
+	font-family: Roboto;
+	font-size: 18px;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	text-align: center;
+	color: #c1a991;
+}
+
+.rule-rectangle {
+	width: 60px;
+	height: 22px;
+	margin: 13px 15px 12px;
+	padding: 6px 15px 5px;
+	border-radius: 5px;
+	border: solid 1px #eacbab;
+	background-color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.tab-url-rectangle-box {
+	width: 100%;
+	height: 50px;
+	margin: 0 0 20px 0;
+	border-radius: 5px;
+	border: solid 1px #eacbab;
+	border-left: 0;
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+}
+
+.rule-rectangle-box {
+	width: fit-content;
+	height: 50px;
+	margin: 10px 0px 10px 0;
+	border-radius: 5px;
+	border: solid 1px #eacbab;
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.rule-rectangle-box-component {
+	height: 100%;
+	padding: 0px 20px 0px 20px;
+	border: solid 1px #eacbab;
+	border-top-width: 0px;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*
+input[type='radio']:after {
+	width: 15px;
+	height: 15px;
+	border-radius: 15px;
+	top: -2px;
+	left: -1px;
+	position: relative;
+	background-color: #d1d3d1;
+	content: '';
+	display: inline-block;
+	visibility: visible;
+	border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+	width: 15px;
+	height: 15px;
+	border-radius: 15px;
+	top: -2px;
+	left: -1px;
+	position: relative;
+	background-color: #ffa500;
+	content: '';
+	display: inline-block;
+	visibility: visible;
+	border: 2px solid white;
+}
+*/
+
+#donation-buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#regex-container {
+	visibility: hidden;
+	margin-top: 10px;
+}
+
+.settings-text {
+	font-family: Roboto;
+	font-size: 18px;
+	font-weight: bold;
+	color: #213b76;
+}
+
+.rule-option-text {
+	font-family: Roboto;
+	font-size: 18px;
+	color: #303a52;
+}
+
+#save-button {
+	background-color: #cfdeff;
+	color: #3a67ca;
+	font-family: Roboto;
+	font-weight: bold;
+	font-size: 18px;
+	margin-left: 16px;
+	padding: 8px 20px 8px 20px;
+	display: flex;
+	align-items: center;
+}
+
+#save-button:hover {
+	background-color: #8bb4f6;
+}
+
+#save-button-icon {
+	width: 18px;
+	height: 18px;
+	margin-right: 10px;
+}
+
+.settings-button {
+	background-color: transparent;
+	color: #3a67ca;
+	font-family: Roboto;
+	font-weight: bold;
+	font-size: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	white-space: nowrap;
+}
+
+.settings-button:hover {
+	background-color: #cfdeff;
+}
+
+.button-Enabled, .button-Disabled, .button-edit, .button-warning {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	white-space: nowrap;
+	background-color: white;
+	color: #75a0ff;
+	font-family: Roboto;
+	font-weight: bold;
+	font-size: 13px;
+}
+.button-Enabled:hover, .button-Disabled:hover, .button-edit:hover, .button-warning:hover {
+	background-color: #cfdeff;
+}
+
+#div-filler {
+	width: 100%;
+}
+
+.settings-button-icon {
+	width: 30px;
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.tab-url-elements {
+	display: flex;
+	height: 50px;
+	margin: 10px 0 0 0;
+}
+
+.regex-input-wrapper {
+	display: flex;
+	height: 50px;
+	margin-top: 10px;
+}
+
+.tab-button-container {
+	margin-left: auto;
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.tab-regex-text {
+	display: none;
+	margin: 5px 0 0 0;
+	color: #9397a3;
+	font-family: Roboto;
+	font-size: 18px;
+}
+
+.tab-regex-text-Regex {
+	display: block;
+}
+
+.button-container {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	align-items: flex-end;
+}
+
+.button-container > *:not(#div-filler) {
+	flex-shrink: 0;
+}
+
+.button-container button {
+	flex: 1;
+	margin: 5px;
+	text-align: center;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	background-color: #f9f9f9;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1;
+	color: #333;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropbtn {
+	background-color: #cfdeff;
+	height: 50px;
+	color: #213b76;
+	font-family: Roboto;
+	font-size: 18px;
+	border: none;
+	cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+	background-color: #cfdeff;
+}
+
+.tab-texts {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	margin: 12px 0px 12px 5px;
+}
+
+.tab-texts-bluh {
+	display: flex;
+	align-items: center;
+}
+
+.tab-texts:hover {
+	overflow: visible;
+}
+
+.protocol-text {
+	background-color: transparent;
+	font-family: Roboto;
+	color: #c8c8c8;
+	margin-right: 2px;
+	padding: 4px 0px 4px 4px;
+	cursor: default;
+	max-width: 60px;
+	font-size: 18px;
+	max-height: 20px;
+}
+
+.savedTabURL {
+	font-size: 18px;
+	max-height: 20px;
+	font-family: Roboto;
+	color: #303a52;
+}
+
+.savedTabURL-Disabled {
+	color: #c8c8c8;
+}
+
+.icon-on.image-Disabled {
+	display: none;
+}
+
+.icon-off.image-Enabled {
+	display: none;
+}
+
+.savedTabURL:hover {
+	overflow: visible;
+}
+
+#rule-type-desc {
+	margin: 10px 0 0 5px;
+	font-family: Roboto;
+	font-size: 18px;
+	font-weight: normal;
+	font-style: normal;
+	color: #9397a3;
+}
+
+#regex-input {
+	border-radius: 5px;
+	height: 50px;
+	border: solid 1px #eacbab;
+}
+
+#button-donate {
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: bold;
+	color: #3a67ca;
+	background-color: white;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+#button-donate:hover {
+	background-color: #FFA500;
+}
+
+#patreon-logo {
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+}
+
+#paypal-logo {
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+}
+
+@media (max-width: 480px) {
+	.button-container {
+		flex-direction: column;
+	}
+}
+
+ul {
+	padding: 5px;
+	list-style-type: none;
+}
+
+ul.ui-sortable li:before {
+	content: '\f0dc';
+	font-family: 'FontAwesome';
+	margin-right: 5px;
+	font-size: 25px;
+	color: #ccc;
+}
+
+li {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding-left: 20px;
+	display: flex;
+	align-items: center;
+	text-align: left;
+}
+
+body {
+	font-family: Roboto;
+	background-color: #f2f2f6;
+	margin:0;
+}
+
+input, button {
+	font-size: 14px;
+}
+
+input[type="text"] {
+	padding: 8px 12px;
+	border: none;
+	outline: none;
+	font-family: Roboto;
+	font-size: 18px;
+	color: #303a52;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+input[type="radio" i] {
+	margin: 0 8px 0 0 ;
+}
+
+button {
+	padding: 8px 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+#dropbtn-protocol-button {
+	overflow: hidden;
+	margin-left: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+#warningBox {
+	color: #a94442;
+	background-color: #f2dede;
+	border: 1px solid #ebccd1;
+	border-radius: 5px;
+	padding: 10px;
+	display: none;
+}
