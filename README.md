@@ -15,7 +15,8 @@ This extension makes sure you can easily reopen and arrange them again if that h
 * Export/Import of settings
 
 ## Download
-[Chrome web store](https://chrome.google.com/webstore/detail/afidegpkabcaoimfpnilmmmphfleeefo)
+* [Chrome web store](https://chrome.google.com/webstore/detail/afidegpkabcaoimfpnilmmmphfleeefo)
+* [Firefox](https://addons.mozilla.org/addon/immortal-pins/)
 
 ## Screenshots
 <img src="./images/screenshot_1.png" alt="Immortal Pins screenshot" width="896" height="560">
