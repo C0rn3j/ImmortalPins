@@ -1,6 +1,3 @@
-// @ts-DOnocheck
-//import * as angular from "angular";
-
 // FileSaver
 declare const saveAs: any;
 

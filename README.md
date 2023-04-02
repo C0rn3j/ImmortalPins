@@ -21,10 +21,5 @@ This extension makes sure you can easily reopen and arrange them again if that h
 ## Screenshots
 <img src="./images/screenshot_1.png" alt="Immortal Pins screenshot" width="896" height="560">
 
-
 ## Support and Bug reports
 [GitHub issues](https://github.com/C0rn3j/ImmortalPins/issues)
-
-## Source and License
-
-No code here so far, all rights reserved, very likely to change in the near future.
